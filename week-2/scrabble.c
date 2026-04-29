@@ -58,3 +58,10 @@ int compute_score(string word)
     }
     return score;
 }
+
+// Would just like to end with some final notes because I had some issues with this problem. When using "int compute_score(string word)". The variable for the function is a string and called word.
+// In order to use the function I had to call on it for my scores above in the variables score1 and score2.
+// The function was also called at the top before main becasue the compiler will then know what function to use when it runs into it later on.
+// Personal note/overall feeling: C is a LOT!! Lot more confusing than python or java. Its not as english/readable friendly as other languages.
+// But I am having fun coding and learning all the new stuff. Still need my hand held a good majority of the time
+// I feel like once I have 45% of the problem running or coded my flow is better forsure.
