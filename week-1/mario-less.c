@@ -1,4 +1,4 @@
-// This version prints the bricks backwards of the way the problem asks but still teaches good principals.
+// This is the correct version with the correct allignment on the bricks
 
 #include <stdio.h>
 #include <cs50.h>
@@ -11,11 +11,17 @@ int main(void)
     // The variable is also called a counter. Keeps track of how many times the loop has ran
     for (int i = 0; i < height; i++)
     {
+        {
+            // This part tripped me on the formula. Didn't realize you could add height - 1 to your i variable.
+            for (int k = 0; k < height - 1 - i; k++)
+            {
+                printf(" ");
+            }
+        }
             for (int j = 0; j <= i; j++)
             {
             printf("%c", brick);
             }
-            printf("\n");
+        printf("\n");
     }
 }
-
