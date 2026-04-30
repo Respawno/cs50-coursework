@@ -51,6 +51,7 @@ int find_letters(string text)
 {
     int count = 0;
     int len = 0;
+    // This while loops looks for the letters in the string. The "\0" is the nul character. There is one at the end of every string which is why we are able to count the letters.
     while (text[len] != '\0')
     {
         if (isalpha(text[len]))
@@ -79,7 +80,7 @@ int find_sentences(string text)
     return count;
 }
 
-// Lastly we need to find the amount of wordss in text
+// Lastly we need to find the amount of words in text
 int find_words(string text)
 {
     // words variable is the index aka i. I replaced it with words because it was easier for me to read. Same thing was repeated on the other functions.
