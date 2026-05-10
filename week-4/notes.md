@@ -257,3 +257,192 @@ int main(void)
 }
 ```
 This would be the same as above just in a function instead. Therefore we don't have to write a loop.
+
+NULL
+	A special value in memory, in the event that something goes wrong.
+	Both `get_string` and `malloc` can return NULL
+
+```c
+#include <cs50.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    char *s = get_string("s: ");
+    if (s == NULL)
+    {
+        return 1;
+    }
+
+    char *t = malloc(strlen(s) + 1);
+    if (t == NULL)
+    {
+        return 1;
+    }
+
+    strcpy(t, s);
+
+    if (strlen(s) > 0)
+    {
+    t[0] = toupper(t[0]);
+    }
+
+    printf("s: %s\n", s);
+    printf("t: %s\n", t);
+
+    free(t);
+}
+```
+It is important to note that of the things added
+	Both strings have NULL now meaning.
+	Also notice that if the string length obtained is 0 it does not proceed with `toupper`
+	Lastly we have `free(t)`
+		Gives back the memory we took from `malloc` earlier in the program
+		This is important because if we had a longer program for like a server. The computer will eventually run out of memory and run into a lot of problems.
+
+
+Valgrind
+```c
+// Demonstrates memory erros via valgrind
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    int *x = malloc(3 * sizeof(int));
+    x[1] = 72;
+    x[2] = 73;
+    x[3] = 33;
+}
+```
+There are plenty of errors with this program and we can use valgrind to help spot those errors that are especially in the place of memory.
+	In there terminal we would run `valgrind ./"yourprogram"` 
+For this specific program we got the output of:
+==19738== Memcheck, a memory error detector
+==19738== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==19738== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==19738== Command: ./memory
+==19738== 
+==19738== Invalid write of size 4
+==19738==    at 0x109170: main (memory.c:11)
+==19738==  Address 0x4b9f04c is 0 bytes after a block of size 12 alloc'd
+==19738==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19738==    by 0x109151: main (memory.c:8)
+==19738== 
+==19738== 
+==19738== HEAP SUMMARY:
+==19738==     in use at exit: 12 bytes in 1 blocks
+==19738==   total heap usage: 1 allocs, 0 frees, 12 bytes allocated
+==19738== 
+==19738== 12 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==19738==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19738==    by 0x109151: main (memory.c:8)
+==19738== 
+==19738== LEAK SUMMARY:
+==19738==    definitely lost: 12 bytes in 1 blocks
+==19738==    indirectly lost: 0 bytes in 0 blocks
+==19738==      possibly lost: 0 bytes in 0 blocks
+==19738==    still reachable: 0 bytes in 0 blocks
+==19738==         suppressed: 0 bytes in 0 blocks
+==19738== 
+==19738== For lists of detected and suppressed errors, rerun with: -s
+==19738== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+
+Fixed code:
+```c
+// Demonstrates memory erros via valgrind
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    int *x = malloc(3 * sizeof(int));
+    x[0] = 72;
+    x[1] = 73;
+    x[2] = 33;
+    free(x);
+}
+```
+
+Garbage Values
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int scores[1024];
+    for (int i = 0; i < 1024; i++)
+    {
+        printf("%i\n", scores[i]);
+    }
+}
+```
+Notice we are not asking the program or user for any score values. Therefore when you run this program it will compile but it will output tons of "garbage values". It may output values it has stored before and what not.
+
+Swap example:
+```c
+// Fails to swap two integers
+
+#include <stdio.h>
+
+void swap(int a, int b);
+
+int main(void)
+{
+    int x = 1;
+    int y = 2;
+
+    printf("x is %i, y is %i\n", x, y);
+    swap(x, y);
+    printf("x is %i, y is %i\n", x ,y);
+}
+
+void swap(int a, int b)
+{
+    int tmp = a;
+    a = b;
+    b = tmp;
+}
+```
+This fails because of the concept of scope.
+
+Memory break down:
+machine code ->
+globals ->
+heap ->
+<- stack
+
+
+Heap
+	Chunk of memory that malloc uses to allocate memory for you.
+Stack
+	Area of memory that is used anytime you create local variables or call functions
+
+Passing by reference: (Using pointers and addresses)
+```c
+#include <stdio.h>
+
+void swap(int *a, int *b);
+
+int main(void)
+{
+    int x = 1;
+    int y = 2;
+
+    printf("x is %i, y is %i\n", x, y);
+    swap(&x, &y);
+    printf("x is %i, y is %i\n", x ,y);
+}
+
+void swap(int *a, int *b)
+{
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+```
