@@ -446,3 +446,150 @@ void swap(int *a, int *b)
     *b = tmp;
 }
 ```
+
+Heap overflow
+	When you overflow the heap, touching areas of memory you are not supposed to.
+
+Stack overflow
+	When too many functions are called, overflowing the amount of memory available.
+
+```c
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int n = get_int("n: ");
+    printf("n: %i\n", n);
+}
+```
+Lets drop the training wheels on get_int for now:
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int n;
+    printf("n: ");
+    scanf("%i", &n);
+    printf("n: %i\n", n);
+}
+```
+
+Lets try to get a string from a user now instead of an int:
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    char *s;
+    printf("s: ");
+    scanf("%s", s);
+    printf("s: %s\n", s);
+}
+```
+This is the code we ran at first but we put in hello as the user input and got core memory dumped error. The program crashes because we declared a pointer with `char *s` but never allocated any memory for it to point to, it is just pointing to a random point of memory.
+
+A couple ways to solve this problem:
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    char *s = malloc(4);
+    printf("s: ");
+    scanf("%s", s);
+    printf("s: %s\n", s);
+}
+```
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    char s[4];
+    printf("s: ");
+    scanf("%s", s);
+    printf("s: %s\n", s);
+}
+```
+
+We can also drop the `scanf` because we don't know how many characters the human will type in.
+More or less we will have to keep in mind how many characters or amounts of memory we will want to be using when asking for user input. Luckily, there are other programming languages like python that will help a lot with asking for user input rather than using C.
+
+File I/O
+	We can start,creating, or even saving files.
+	Useful commands that we will explore:
+		`fopen`
+		`fclose`
+		`fprintf`
+		`fscanf`
+		`fread`
+		`fwrite`
+		`fseek`
+
+Example of using some of those codes to write someones name and number into a phonebook.csv file:
+```c
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    FILE *file = fopen("phonebook.csv", "w");
+
+    char *name = get_string("Name: ");
+    char *number = get_string("Number: ");
+
+    fprintf(file, "%s,%s\n", name, number);
+
+    fclose(file);
+}
+```
+You can use `"a"` instead if `"w"` to have the user input appended in the file that way new data or input won't get deleted or overwritten.
+
+Copy a file as it reads program:
+```c
+#include <stdio.h>
+
+typedef unsigned char BYTE;
+
+int main(int argc, char *argv[])
+{
+    FILE *src = fopen(argv[1], "r");
+    FILE *dst = fopen(argv[2], "w");
+
+    BYTE b;
+
+    while (fread(&b, sizeof(b), 1, src) != 0)
+    {
+        fwrite(&b, sizeof(b), 1 ,dst);
+
+    }
+
+    fclose(dst);
+    fclose(src);
+}
+```
+
+Notice the new word `unsigned char`, this is basically us telling the program we are not using integers or negative numbers.
+
+`uint8_t`
+	Type that stores an 8 - bit unsigned integer.
+
+`int16_t`
+	Type that stores a 16 - bit signed integer.
+
+Signed char
+	Reserves one bit for the +/- sign
+	Range: -128 to 127
+	Example: Useful for storing small integers that could be negative
+
+Unsigned char
+	All 8 bits used for the value, no sign
+	Range: 0 to 255
+	Example: Useful for raw binary data, pixel values, bytes.
