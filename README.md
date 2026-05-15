@@ -8,8 +8,8 @@ My solutions, notes, and projects from Harvard's CS50x — Introduction to Compu
 - [x] Week 0: Scratch
 - [x] Week 1: C
 - [x] Week 2: Arrays
-- [ ] Week 3: Algorithms
-- [ ] Week 4: Memory
+- [x] Week 3: Algorithms
+- [x] Week 4: Memory
 - [ ] Week 5: Data Structures
 - [ ] Week 6: Python
 - [ ] Week 7: SQL
