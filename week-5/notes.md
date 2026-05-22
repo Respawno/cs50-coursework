@@ -290,4 +290,171 @@ This is where linked lists have the advantage.
 	A doubly linked list would store two address on a computers memory for one piece of data.
 		Benefit would be that would could start for head or tail(end) of a the list to look for what we are looking for.
 		Downside would be that a doubly linked list would take up more computer memory.
-	
+
+```c
+// Frees memory in cases of error too
+
+#include <cs50.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int number;
+    struct node *next;
+} node;
+
+void unload(node *list);
+
+int main(void)
+{
+    // Memory for numbers
+    node *list = NULL;
+
+    // Build list
+    for (int i = 0; i < 3; i++)
+    {
+        // Allocate node for number
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            unload(list);
+            return 1;
+        }
+        n->number = get_int("Number: ");
+        n->next = NULL;
+
+        // If list is empty
+        if (list == NULL)
+        {
+            list = n;
+        }
+
+        // If number belongs at beginning of list
+        else if (n->number < list->number)
+        {
+            n->next = list;
+            list = n; 
+        }
+
+        // If number belongs later in list
+        else
+        {
+            // Iterate over nodes in list
+            for (node *ptr = list; ptr != NULL; ptr = ptr->next)
+            {
+                // If at end of list
+                if (ptr->next == NULL)
+                {
+                    // Append node
+                    ptr->next = n;
+                    break;
+                }
+
+                // If in middle of list
+                if (n->number < ptr->next->number)
+                {
+                    n->next = ptr->next;
+                    ptr->next = n;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Print numbers
+    for (node *ptr = list; ptr != NULL; ptr = ptr->next)
+    {
+        printf("%i\n", ptr->number);
+    }
+
+    // Free memory
+    unload(list);
+    return 0;
+}
+
+void unload(node *list)
+{
+    node *ptr = list;
+    while (ptr != NULL)
+    {
+        node *next = ptr->next;
+        free(ptr);
+        ptr = next;
+    }
+}
+```
+
+Notice that the `unload` function frees the entire list.
+
+Trees
+	How can we combine both arrays and linked lists?
+		Binary search trees
+			Downside is a lot more memory usage
+
+```c
+typedef struct node
+{
+    int number;
+    struct node *left;
+    struct node *right;
+}node;
+```
+
+```c
+#include <stdio.h>
+
+typedef struct node
+{
+    int number;
+    struct node *left;
+    struct node *right;
+}node;
+
+bool search(node *tree, int number)
+{
+    if (tree = NULL)
+    {
+        return false;
+    }
+    else if (number < tree->number)
+    {
+        return search(tree->left, number);
+    }
+    else if (number > tree->number)
+    {
+        return search(tree->right, number);
+    }
+    else if (number == tree->number)
+    {
+        return true;
+    }
+}
+```
+
+![[Pasted image 20260522143458.png]]
+The code above is doing what this tree is showing.
+
+Hashing
+	Idea of taking a value and being able to output a value that becomes a shortcut to it later.
+```c
+#include <ctype.h>
+
+int hash(char *name)
+{
+    return toupper(name[0]) - 'A';
+}
+```
+
+Hash Tables
+	Combination of both arrays and linked lists
+		Array of pointers to nodes
+	`node *table[26];`
+![[Pasted image 20260522153318.png]]
+Picture of an example of an array linked list.
+
+Tries
+	Another form of data structure.
+	Trees of arrays.
+	Always searchable in constant time.
+	Downside is that they tend to take up a large amount of memory.
