@@ -465,3 +465,5 @@ typedef struct node
     char *number;
 } node;
 ```
+
+`node *trie`
