@@ -458,3 +458,10 @@ Tries
 	Trees of arrays.
 	Always searchable in constant time.
 	Downside is that they tend to take up a large amount of memory.
+```c
+typedef struct node
+{
+    struct node *childern[26];
+    char *number;
+} node;
+```
