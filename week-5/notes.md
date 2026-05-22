@@ -162,3 +162,132 @@ Data
 Metadata
 	Data that helps you maintain the data you care about.
 
+Node list example
+```c
+#include <cs50.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int number;
+    struct node *next;
+}node;
+
+int main(void)
+{
+    node *list = NULL;
+
+    for (int i = 0; i < 3; i++)
+    {
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            return 1;
+        }
+        n->number = get_int("Number: ");
+        n->next = NULL;
+
+        // Prepend node to list. Insert to start
+        n->next = list;
+        list = n;
+    }
+    return 0;
+}
+```
+
+A way to print the numbers with a while loop
+```c
+#include <cs50.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int number;
+    struct node *next;
+}node;
+
+int main(void)
+{
+    node *list = NULL;
+
+    for (int i = 0; i < 3; i++)
+    {
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            return 1;
+        }
+        n->number = get_int("Number: ");
+        n->next = NULL;
+
+        // Prepend node to list. Insert to start
+        n->next = list;
+        list = n;
+    }
+
+    // Print numbers
+    node *ptr = list;
+    while (ptr != NULL)
+    {
+        printf("%i\n", ptr->number);
+        ptr = ptr->next;
+    }
+    return 0;
+}
+```
+
+Now with a for loop:
+```c
+#include <cs50.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int number;
+    struct node *next;
+}node;
+
+int main(void)
+{
+    node *list = NULL;
+
+    for (int i = 0; i < 3; i++)
+    {
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            return 1;
+        }
+        n->number = get_int("Number: ");
+        n->next = NULL;
+
+        // Prepend node to list. Insert to start
+        n->next = list;
+        list = n;
+    }
+
+    // Print numbers
+    for (node *ptr = list; ptr != NULL; ptr = ptr->next)
+    {
+        printf("%i\n", ptr->number);
+    }
+    return 0;
+}
+```
+
+Difference between array lists vs linked lists
+Problem with array list
+	We can't insert or delete data into an address. Everything would have to shift to right or left and it would be very hard to code if we had a lot of data.
+This is where linked lists have the advantage.
+	Linked lists do not have index's the same way arrays do.
+	Linked lists use nodes and they are contiguous and can be anywhere in your computers memory. Each node knows where the next node resides.
+	We know when we reached then end of our linked list when the address/pointer has a value of "NULL".
+	If we delete a node. The node would just point to the next node in line.
+	In a linked list we have to start with the head(start) and go through the nodes to find what we are looking for. That is called a ==Singly Linked List==
+	A doubly linked list would store two address on a computers memory for one piece of data.
+		Benefit would be that would could start for head or tail(end) of a the list to look for what we are looking for.
+		Downside would be that a doubly linked list would take up more computer memory.
+	
