@@ -42,3 +42,72 @@ Functions
 Named parameters
 
 docs.python.org
+
+End parameters
+```python
+print("hello, world", end="")
+```
+This would be like forgetting to put \n in c at the end of your print statement:
+hello, world$
+
+```python
+print(*objects, sep=' ', end='\n', file=None, flush=False)
+```
+ Objects
+	 0 or more objects
+		 Could be a number or a string
+sep(Separator)
+	Separators between arguments to print
+
+Variables
+	Types
+		bool
+		float
+		int
+		str
+
+Data types
+	range - sequence of numbers
+	list - sequence of mutable values
+	tuple - sequence of immutable values
+	dict - collection of key - value pairs
+	set - collection of unique values
+
+Change counter by 1
+	`counter += 1`
+
+```python
+# Addition with int
+
+x = input("x: ")
+
+y = input("y: ")
+
+print(x + y)
+```
+The output would be the numbers combined not added
+So I put 5 for x and 2 for y the output would be 52.
+So how do we do addition?
+```python
+# Addition with int
+
+x = input("x: ")
+
+y = input("y: ")
+
+print(int(x) + int(y))
+```
+
+You could also do it like such
+```python
+# Addition with int
+
+x = int(input("x: "))
+
+y = int(input("y: "))
+
+print(x + y)
+```
+Both would give you addition to your output and give you the results you wanted.
+
+Left off on 47:04
