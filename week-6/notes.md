@@ -38,3 +38,7 @@ after.save("out2.bmp")
 
 Functions
 	modules, packages
+
+Named parameters
+
+docs.python.org
