@@ -35,4 +35,6 @@ before = Image.open("stadium.bmp")
 after = before.filter(ImageFilter.FIND_EDGES)
 after.save("out2.bmp")
 ```
+
 Functions
+	modules, packages
