@@ -110,4 +110,100 @@ print(x + y)
 ```
 Both would give you addition to your output and give you the results you wanted.
 
-Left off on 47:04
+Conditionals
+```python
+if x < y:
+    print("x is less than y")
+```
+Example of a conditional in python and notice the differences from when we were using them in C.
+
+Compare.py
+```python
+x = int(input("What's x: "))
+y = int(input("What's y: "))
+
+if x < y:
+    print("x is less than y")
+elif x > y:
+    print("x is greater than y")
+else:
+    print("x is equal to y")
+```
+
+Also remember in C when we would use strcmp to compare two strings together to see if the are equal. Look how easy we can do that in python:
+```python
+s = input("s: ")
+t = input("t: ")
+
+if s == t:
+    print("same")
+else:
+    print("different")
+```
+
+Using or for our conditionals
+```python
+s = input("Do you agree? ")
+
+if s == "Y" or s == "y":
+    print("Agreed")
+else:
+    print("Disagre")
+```
+
+Lists
+	Linked list in python
+```python
+s = input("Do you agree? ")
+
+if s in ["y", "yes"]:
+    print("Agreed")
+else:
+    print("Disagre")
+```
+We can use the in operator to have a conditional for the list of strings we provided.
+But now we have ran into a bug. What happens if a user enters the input "YES". It would be declined and follow the else statement because it is case sensitive. Lets fix that:
+```python
+s = input("Do you agree? ")
+
+s = s.lower()
+
+if s in ["y", "yes"]:
+    print("Agreed")
+else:
+    print("Disagre")
+```
+
+You can also chain the first line together with .lower()
+```python
+s = input("Do you agree? ").lower()
+
+if s in ["y", "yes"]:
+    print("Agreed")
+else:
+    print("Disagre")
+```
+This is also known as object-oriented programming
+
+```python
+s = input("s: ")
+
+t = s.capitalize()
+
+print(f"s: {s}")
+print(f"t: {t}")
+```
+s would print it's original output and t would print a copy of that input and output it as capitalized. 
+
+```python
+i = 0
+while i < 3:
+    print("meow")
+    i += 1
+```
+This will print meow three times
+Another and easier way to write this:
+```python
+for i in [0, 1, 2]:
+    print("meow")
+```
