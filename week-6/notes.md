@@ -207,3 +207,123 @@ Another and easier way to write this:
 for i in [0, 1, 2]:
     print("meow")
 ```
+But there is a problem even with this code. What if we wanted to do 100 numbers. We can't be expected to write out 0-100. Here is how we would do so:
+```python
+for i in range(5):
+    print("meow")
+```
+Defining meow as a function:
+```python
+def meow():
+    print("meow")
+
+for i in range(3):
+    meow()
+```
+Arguably, this is not the best way to write this in a bigger program where you might have a lot of them:
+```python
+def main():
+    for i in range(3):
+        meow()
+
+def meow():
+    print("meow")
+
+main()
+```
+
+Exceptions
+```python
+# Doesn't handle exception
+
+n = int(input("Input: "))
+print("Integer")
+```
+
+```python
+# Handles exception
+
+try:
+    n = int(input("Input: "))
+    print("Integer")
+except ValueError:
+    print("Not integer")
+```
+
+
+Mario examples: Asking for height:
+```python
+while True:
+    n = int(input("Height: "))
+    if n > 0:
+        break
+
+for i in range(n):
+    print("#")
+```
+Printing question marks like in Mario but horizontally:
+```python
+for i in range(4):
+    print("?", end="")
+print()
+```
+You could right that same code but even easier like so:
+```python
+print("?" * 4)
+```
+Print the big brick in Mario:
+```python
+for row in range(3):
+    for col in range(3):
+        print("#", end="")
+    print()
+```
+But we just learned above that again we can write this code easier and it would be done like such:
+```python
+for row in range(3):
+    print("#" * 3)
+```
+
+Finding the averages of numbers in a list
+```python
+scores = [72, 73, 33]
+
+average = sum(scores) / len(scores)
+print(f"Average: {average}")
+```
+How to ask for users numbers and add them into the array of scores
+```python
+scores = []
+for i in range(3):
+    score = int(input("Score: "))
+    scores.append(score)
+
+average = sum(scores) / len(scores)
+print(f"Average: {average}")
+```
+
+Coding them same phonebook problem we did a couple weeks back:
+```python
+names = ["Kelly", "David", "John"]
+
+name = input("Name: ")
+
+for n in names:
+    if name == n:
+        print("Found!")
+        break
+else
+    print("Not Found!")
+
+```
+Easier way to write:
+```python
+names = ["Kelly", "David", "John"]
+
+name = input("Name: ")
+
+if name in names:
+    print("Found!")
+else:
+    print("Not found")
+```
